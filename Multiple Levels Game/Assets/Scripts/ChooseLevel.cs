@@ -3,95 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class ChooseLevel : MonoBehaviour
 {
+    public Button level1Button; // Assign this in the Inspector
+    public Button level2Button;
+    public Button level3Button;
 
-    public Button[] buttons;
-
-    private void Awake()
+    private void Start()
     {
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            buttons[i].interactable = false;
-        }
+        // Initially, only level 1 is accessible.
+        int unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1);
 
-        for (int i=0; i < unlockedLevel; i++)
+        // Enable the buttons based on the unlocked levels
+        level1Button.interactable = unlockedLevels >= 1;
+        level2Button.interactable = unlockedLevels >= 2;
+        level3Button.interactable = unlockedLevels >= 3;
+    }
+
+    // Method to load a specific level (Level 1, 2, or 3)
+    public void LoadLevel(int levelIndex)
+    {
+        int maxLevelIndex = SceneManager.sceneCountInBuildSettings - 1;
+
+        if (levelIndex >= 1 && levelIndex <= maxLevelIndex)
         {
-            buttons[i].interactable = true;
+            SceneManager.LoadScene(levelIndex);
+        }
+        else
+        {
+            Debug.Log("Invalid level index.");
+        }
+    }
+        public void UnlockNextLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            level2Button.interactable = true; // Unlock Level 2
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            level3Button.interactable = true; // Unlock Level 3
         }
     }
 
-    public void OpenLevel(int levelId)
+    public void GoBack()
     {
-        string levelName = "Level " +levelId;
-        SceneManager.LoadScene(levelName);
-
-
-    // public void Level1()
-    // {
-    //     SceneManager.LoadScene("Level 1");
-    // }
-
-    // public void Level2()
-    // {
-    //     SceneManager.LoadScene("Level 2");
-    // }
-    // public void Level3()
-    // {
-    //     SceneManager.LoadScene("Level 3");
-    // }
-    // public void Level4()
-    // {
-    //     SceneManager.LoadScene("Level 4");
-    // }
-    // public void Level5()
-    // {
-    //     SceneManager.LoadScene("Level 5");
-    // }
-    // public void Level6()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level7()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level8()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level9()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level10()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level11()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level12()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level13()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level14()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-    // public void Level15()
-    // {
-    //     SceneManager.LoadScene("Choose Level");
-    // }
-
-
-
-
-}
+        SceneManager.LoadScene("Menu");
+    }
+    public void LoadLevel1()
+    {
+    SceneManager.LoadScene("Level 1"); // Assuming Level 1 is the first scene in build settings
+    }
+    public void LoadLevel2()
+    {
+    SceneManager.LoadScene("Level 2");
+    }
+    public void LoadLevel3()
+    {
+    SceneManager.LoadScene("Level 3");
+    }
 }
