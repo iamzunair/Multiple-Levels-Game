@@ -17,9 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject previousLevelUI; // UI object for the previous level screen
     public Button level2Button; // Button to unlock level 2
     public Button level3Button; // Button to unlock level 3
+    public int enemiesToKillLevel1 = 10;
 
-    private int enemiesToKillLevel2 = 15; // Number of enemies to kill in Level 2
-    private int enemiesToKillLevel3 = 5; // Number of enemies to kill in Level 3
+    public  int enemiesToKillLevel2 = 15; // Number of enemies to kill in Level 2
+    public  int enemiesToKillLevel3 = 5; // Number of enemies to kill in Level 3
     public GameObject winTextObject; // UI object for the win message
     public GameObject mainMenuUI; // UI object for the main menu
 
@@ -43,23 +44,26 @@ public class GameManager : MonoBehaviour
             enemyCount++; // Increment the enemy count
             UpdateCountText(); // Update the displayed enemy count
 
-            if (enemyCount >= enemiesToKillLevel2 && SceneManager.GetActiveScene().name == "Level 2")
+            if (enemyCount >= enemiesToKillLevel1 && SceneManager.GetActiveScene().name == "Level 1")
             {
-                LevelCompleted(2); // Unlock Level 2
+                LevelCompleted(2); // Unlock Level 2 when Level 1 is completed
+                level2Button.interactable = true; // Enable the Level 2 button
+                GameOver(); // Trigger game over
+                //previousLevelUI.SetActive(true); // Show the previous level UI
+            }
+            else if (enemyCount >= enemiesToKillLevel2 && SceneManager.GetActiveScene().name == "Level 2")
+            {
+                LevelCompleted(3); // Unlock Level 3 when Level 2 is completed
+                level3Button.interactable = true; // Enable the Level 3 button
                 GameOver(); // Trigger game over
                 previousLevelUI.SetActive(true); // Show the previous level UI
             }
             else if (enemyCount >= enemiesToKillLevel3 && SceneManager.GetActiveScene().name == "Level 3")
             {
-                LevelCompleted(3); // Unlock Level 3
                 GameOver(); // Trigger game over
                 gameOverUI.SetActive(false); // Hide game over UI
                 nextLevelUI.SetActive(false); // Hide next level UI
                 mainMenuUI.SetActive(true); // Show the main menu UI
-            }
-            else if (enemyCount >= 10 && SceneManager.GetActiveScene().name == "Level 1")
-            {
-                GameOver(); // Trigger game over
             }
         }
     }
