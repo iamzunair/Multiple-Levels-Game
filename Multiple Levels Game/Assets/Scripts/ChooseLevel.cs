@@ -1,66 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ChooseLevel : MonoBehaviour
 {
-    public Button level1Button; // Assign this in the Inspector
+    //Declare public variables for buttons
+    public Button level1Button;
     public Button level2Button;
     public Button level3Button;
+    public Button refreshButton;
+    
+    //Initialize the number of unlocked levels
+    private int unlockedLevels = 1; // Initialize with the first level unlocked
 
-    private void Start()
+    void Start()
     {
-        // Initially, only level 1 is accessible.
-        int unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1);
+        // Load the player's progress from PlayerPrefs
+        unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1);
 
-        // Enable the buttons based on the unlocked levels
-        level1Button.interactable = unlockedLevels >= 1;
-        level2Button.interactable = unlockedLevels >= 2;
-        level3Button.interactable = unlockedLevels >= 3;
+        // Enable buttons based on the player's progress
+        level1Button.interactable = true;  //Always enable the first level
+        level2Button.interactable = false; //Initially disable the second level
+        level3Button.interactable = false; //Initiallyy disable the third level
+
+        // Enable buttons based on the player's progress
+        for (int i = 2; i <= unlockedLevels; i++)
+        {
+            if (i == 2)
+            {
+                level2Button.interactable = true;  //Enable the second level
+            }
+            else if (i == 3)
+            {
+                level3Button.interactable = true; //Enable the third level
+            }
+        }
+
+        // Attach click event handlers to the buttons
+        level1Button.onClick.AddListener(() => LoadLevel("Level 1"));
+        level2Button.onClick.AddListener(() => LoadLevel("Level 2"));
+        level3Button.onClick.AddListener(() => LoadLevel("Level 3"));
+        refreshButton.onClick.AddListener(RefreshLevels);
     }
 
-    // Method to load a specific level (Level 1, 2, or 3)
-    public void LoadLevel(int levelIndex)
+    // Load a level when its button is clicked
+    public void LoadLevel(string levelName)
     {
-        int maxLevelIndex = SceneManager.sceneCountInBuildSettings - 1;
+        SceneManager.LoadScene(levelName);
+    }
 
-        if (levelIndex >= 1 && levelIndex <= maxLevelIndex)
-        {
-            SceneManager.LoadScene(levelIndex);
-        }
-        else
-        {
-            Debug.Log("Invalid level index.");
-        }
-    }
-        public void UnlockNextLevel()
-    {
-        if (SceneManager.GetActiveScene().name == "Level 1")
-        {
-            level2Button.interactable = true; // Unlock Level 2
-        }
-        else if (SceneManager.GetActiveScene().name == "Level 2")
-        {
-            level3Button.interactable = true; // Unlock Level 3
-        }
-    }
+    // Load the main menu
 
     public void GoBack()
     {
         SceneManager.LoadScene("Menu");
     }
-    public void LoadLevel1()
+
+    // Reset the level selection by locking all levels except the first one
+    void RefreshLevels()
     {
-    SceneManager.LoadScene("Level 1"); // Assuming Level 1 is the first scene in build settings
-    }
-    public void LoadLevel2()
-    {
-    SceneManager.LoadScene("Level 2");
-    }
-    public void LoadLevel3()
-    {
-    SceneManager.LoadScene("Level 3");
+        unlockedLevels = 1; //Reset to having only the first level unlocked
+        PlayerPrefs.SetInt("UnlockedLevels", unlockedLevels);
+        PlayerPrefs.Save();
+
+        level1Button.interactable = true; //Always enable the first level
+        level2Button.interactable = false; //Disable the second level
+        level3Button.interactable = false; //Disable the third level
     }
 }

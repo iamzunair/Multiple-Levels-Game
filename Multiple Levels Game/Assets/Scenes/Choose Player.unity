@@ -2419,6 +2419,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5335002543740835159, guid: d662640aafc039046bc310c254363597, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 51484eba2f979dc45adbe92476b9a03b, type: 2}
     - target: {fileID: 5335002543740835177, guid: d662640aafc039046bc310c254363597, type: 3}
       propertyPath: m_Name
       value: Blue Color
@@ -2444,6 +2448,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7256479225741657507, guid: ca47fa9bfbbf44b4599c54040a4f3ee1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4050ad8fac634984fa7113c85ff300ea, type: 2}
     - target: {fileID: 7256479225741657533, guid: ca47fa9bfbbf44b4599c54040a4f3ee1, type: 3}
       propertyPath: m_RootOrder
       value: 3

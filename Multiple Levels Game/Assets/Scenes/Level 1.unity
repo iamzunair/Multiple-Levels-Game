@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1325673369}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: mainMenu
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2186,8 +2186,11 @@ MonoBehaviour:
   gameOverText: {fileID: 934322024}
   gameOverUI: {fileID: 547453561}
   nextLevelUI: {fileID: 516640313}
+  previousLevelUI: {fileID: 0}
   level2Button: {fileID: 1685287877}
   level3Button: {fileID: 1088733838}
+  winTextObject: {fileID: 0}
+  mainMenuUI: {fileID: 0}
 --- !u!114 &1325673370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3408,7 +3411,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1325673369}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: restart
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
