@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public  int enemiesToKillLevel3 = 5; // Number of enemies to kill in Level 3
     public GameObject winTextObject; // UI object for the win message
     public GameObject mainMenuUI; // UI object for the main menu
+    public Button pauseButton;
 
     void Awake()
     {
@@ -85,6 +86,11 @@ public class GameManager : MonoBehaviour
         isGameOver = true; // Set the game over flag to true
         gameOverText.SetActive(true); // Show game over text
         Time.timeScale = 0f; // Pause the game (set time scale to 0)
+        // Disable the "Pause" button when the game is over
+        if (pauseButton != null)
+        {
+            pauseButton.interactable = false;
+        }
     }
 
     public void Restart()

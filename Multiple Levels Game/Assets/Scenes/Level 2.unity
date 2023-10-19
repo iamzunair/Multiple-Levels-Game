@@ -3589,6 +3589,7 @@ MonoBehaviour:
   enemiesToKillLevel3: 5
   winTextObject: {fileID: 0}
   mainMenuUI: {fileID: 0}
+  pauseButton: {fileID: 1688458331}
 --- !u!114 &1325673370
 MonoBehaviour:
   m_ObjectHideFlags: 0
