@@ -64,4 +64,5 @@ public class Gun : MonoBehaviour
             Time.timeScale = 0f;  // Pause the game by setting time scale to 0
         }
     }
+    
 }

@@ -57,7 +57,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     // Reset the level selection by locking all levels except the first one
-    void RefreshLevels()
+    public void RefreshLevels()
     {
         unlockedLevels = 1; //Reset to having only the first level unlocked
         PlayerPrefs.SetInt("UnlockedLevels", unlockedLevels);
